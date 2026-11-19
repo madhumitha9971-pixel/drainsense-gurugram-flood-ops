@@ -1,61 +1,79 @@
-DrainSense 3D: Predictive Drainage & Cascade Flood Operations for Gurugram
-> SIMULATED SCENARIO DISCLOSURE: All simulated prototype outputs, 3D spatial water-level animations, and scenario metrics are Simulated Scenarios built on documented operational assumptions for SustainX 2026. Only observed facts and explicitly documented assumptions are presented as actual performance or context, and all sources, assumptions, and AI tools used are cited.
-> 
-1. Core Thesis & Problem Diagnosis
-Core Hypothesis: Gurugram's recurring monsoon flooding is an operational failure rather than a budget failure. Shifting the Municipal Corporation of Gurugram (MCG) from reactive pumping to a 24–48 hour predictive drainage workflow can reduce waterlogging across Gurugram's 159 identified waterlogging hotspots.
- * Extreme Rainfall Impact: On September 1, 2025, 133 mm of rain in four hours triggered a 20 km traffic jam and a 51-hour power outage across the city.
- * Pre-Monsoon Desilting Lag: By late June 2026, MCG had completed desilting at only 16 of 36 identified hotspots against a May 31 deadline, despite a mandate to desilt 607 km of drainage network.
- * Why Current Operations Fall Short: Maintenance is reactive, field status relies on manual calls and site visits, and crew or pump allocation lacks hydrological risk modelling across all 159 hotspots.
-2. End-to-End System Flowchart
-[1. DATA & CONTEXT INPUTS]
-  |-- IMD Rainfall Forecasts & Nowcasts
-  |-- Drain Level Sensors, CCTV & Rain Gauges (Vandal-Proof / Weatherproof)
-  |-- Historical Flood Records + Seasonal Silt / Desilting Logs (607 km / 159 hotspots)
-        |
-        v
-[2. DRAINAGE TOPOLOGY & 80/20 CHOKEPOINT ENGINE]
-  |-- Directed Upstream -> Culvert Chokepoint -> Downstream Underpass/Sector Graph
-  |-- Identifies High-Leverage Nodes (~20% share driving ~80% systemic flood risk)
-        |
-        v
-[3. 24-48h AI RISK & CONFIDENCE SCORING]
-  |-- Outputs: Risk Level, Confidence Score, Primary Cause, Action, Owner, Deadline
-        |
-        +-------------------------------+-------------------------------+
-        |                               |                               |
-        v                               v                               v
-[4A. MCG SOP COMMAND]          [4B. RWA OVERRIDE LEDGER]       [4C. CITIZEN ALERT GUARDRAIL]
-  |-- T-48h to T-24h: EE Rank     |-- Compares Hydrological       |-- High Conf. + High Risk
-  |-- T-24h to T-12h: JE/AE Clear     Score vs. RWA Request         --> Public AVOID Alert
-  |-- T-12h to T-6h: Pump Prep    |-- Logs Override + Reason      |-- Low/Med Conf. + High Risk
-  |-- T-6h to T-0h: Alert/Watch       for Audit Trail               --> Field Verification First
-  |-- During & After Rain: Audit                                  |-- SMS + IVR + Web/Corridor
+# DrainSense 3D: Predictive Drainage & Cascade Flood Operations for Gurugram
 
-3. Innovative Modules & Real-World Guardrails
- * 3D Drainage & Cascade Topology Twin (80/20 Leverage): Maps upstream feeders, culvert chokepoints, and downstream underpasses or sectors in 3D to test the working hypothesis that roughly 20% of drainage nodes drive about 80% of systemic flooding, showing how clearing upstream chokepoints reduces downstream flood risk.
- * 24–48 Hour Risk & Confidence Output: Combines IMD rainfall forecasts and nowcasts, sensor and CCTV signals, historical flood records, and seasonal silt data into actionable outputs—such as flagging a hotspot's risk level, confidence tier, likely upstream cause, pre-emptive action, responsible owner (e.g., Zone Junior Engineer), and target deadline.
- * Zero-PhD MCG Operations Protocol (SOPs): Operable by existing MCG staff without a dedicated data science team across T-48 to T-24h, T-24 to T-12h, T-12 to T-6h, T-6 to T-0h, During Rain, and After Rain.
- * RWA Political Economy & Transparent Dispatch Ledger: Addresses political pressure from influential RWAs by comparing objective hydrological scores against requested pump/crew shifts and logging any manual override with a documented reason across MCG and GMDA.
- * Confidence-Gated Citizen Alerts: Uses Safe, Caution, and Avoid thresholds across SMS, IVR calls (for non-smartphone users), WhatsApp/web, and corridor views, routing lower-confidence warnings to field verification first so false alarms do not erode public trust.
- * Rugged Indian-Context Hardware: Focuses on vandal-resistant, outdoor weatherproof, low-maintenance drain level gauges, rain gauges, underpass CCTV, and telemetry grounded in Indian market benchmarks.
-4. Front-End Prototype Screens
-| Screen / View | Primary Purpose | Core Controls & Outputs |
+[![License: MIT](https://img.shields.io/badge/Code_License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Docs: CC BY 4.0](https://img.shields.io/badge/Docs_License-CC_BY_4.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![Competition: SustainX 2026](https://img.shields.io/badge/SustainX_2026-Round_2_Prototype-orange.svg)](#submission-details)
+[![Status: Simulated Scenario](https://img.shields.io/badge/Data-Simulated_Scenario-red.svg)](#disclosure--citations)
+
+> **SIMULATED SCENARIO DISCLOSURE:** All sensor telemetry, 3D water-level animations, and performance metrics in this repository are **Simulated Scenarios** built on documented operational assumptions for **SustainX 2026**. Only observed public facts and explicitly documented assumptions are presented as context, and all external sources and AI tools used are cited below.
+
+---
+
+## 1. Overview & Core Hypothesis
+
+**DrainSense 3D** is an AI-enabled predictive flood operations system designed for the **Municipal Corporation of Gurugram (MCG)** and **GMDA** to shift urban flood management from reactive pumping to pre-emptive drainage intervention across Gurugram's **159 identified waterlogging hotspots** and **607 km** drainage network.
+
+* **Core Thesis:** Gurugram's recurring monsoon flooding is an operational failure rather than a budget failure.
+* **Zero-PhD Operability:** Built for existing MCG Junior Engineers (JEs), Assistant Engineers (AEs), Executive Engineers (EEs), Pump Crews, and Control Room Operators—requiring no dedicated data science team.
+
+---
+
+## 2. Problem Diagnosis
+
+* **Extreme Rainfall Shock:** On September 1, 2025, 133 mm of rain in four hours caused a 20 km traffic jam and a 51-hour power outage across Gurugram.
+* **Desilting Execution Gap:** By late June 2026, MCG had completed desilting at only 16 of 36 identified hotspots against a May 31 deadline, despite a mandate to desilt 607 km of drainage network.
+* **Three Operational Bottlenecks:**
+  1. **Reactive Maintenance:** Drains and culverts are cleared after citizen complaints rather than ranked by downstream flood impact.
+  2. **Manual Status Tracking:** Hotspot readiness relies on phone calls and ad-hoc site visits with no early warning signal.
+  3. **Unranked Dispatch:** Pumps and crews are allocated without hydrological risk scoring across Gurugram's 159 hotspots.
+
+---
+
+## 3. End-to-End System Flowchart
+
+```mermaid
+flowchart TD
+    A["1. Multi-Source Data Inputs<br/>• IMD Rainfall Forecasts & Nowcasts<br/>• Vandal-Proof Drain Level & Rain Sensors<br/>• Underpass CCTV & Historical Flood Logs<br/>• Seasonal Silt & Desilting Status (607 km)"] --> B["2. Drainage Topology & 80/20 Engine<br/>• Directed Upstream → Culvert → Downstream Graph<br/>• Identifies High-Leverage Chokepoints (~20% driving ~80% flood cascade)"]
+    B --> C["3. 24–48h AI Risk & Confidence Model<br/>• Risk Tier: Safe / Caution / Avoid<br/>• Confidence Score + Root Cause + Action + Owner + Deadline"]
+    
+    C --> D["4A. MCG SOP Command (T-48h to Post-Rain)<br/>• T-48h to T-24h: EE Priority Ranking<br/>• T-24h to T-12h: JE/AE Culvert Clearing<br/>• T-12h to T-6h: Pump Pre-Positioning<br/>• T-6h to T-0h & Rain: Live Watch & Audit"]
+    C --> E["4B. RWA Political Economy Ledger<br/>• Compares Hydrological Score vs. RWA Request<br/>• Logs Manual Override + Mandatory Reason"]
+    C --> F{"4C. Citizen Alert Guardrail<br/>High Impact + Confidence ≥ 75%?"}
+    
+    F -- "Yes (High Confidence)" --> G["Public AVOID / CAUTION Alert<br/>• SMS, IVR Voice (Non-Smartphone), WhatsApp & Corridor Map"]
+    F -- "No (Low/Medium Confidence)" --> H["Field Verification Queue<br/>• Zone JE Inspection Before Public Panic"]
+
+4. Key Innovations (Beyond Generic Flood Dashboards)
+ * Interactive 3D Drainage & Cascade Twin (80/20 Leverage): Models upstream feeders, culvert chokepoints, and downstream underpasses/sectors in 3D so operators can simulate how clearing one upstream chokepoint drops flood levels across multiple downstream hotspots.
+ * RWA Pressure vs. Hydrological Score Audit Ledger: Protects municipal engineers when influential RWAs demand immediate pump diversion by displaying objective hydrological urgency side-by-side and logging any manual override with a documented reason.
+ * Confidence-Gated Citizen Alerts: Prevents alarm fatigue by routing uncertain predictions to a Field Verification Queue first, reserving public Avoid alerts for high-confidence, high-impact events across SMS, IVR voice calls, and web corridors.
+ * Rugged Indian-Context Sensor Architecture: Specifies weatherproof, vandal-resistant, low-maintenance ultrasonic/radar drain gauges, automatic rain gauges, and existing underpass CCTV grounded in Indian municipal cost benchmarks.
+5. Front-End Prototype Screens
+| Screen / Module | Purpose | Interactive Controls & Outputs |
 |---|---|---|
-| 3D Corridor & Chokepoint Twin | Visualize upstream-to-downstream flow, silt load, and rising flood columns in 3D | Horizon selector (T-48h to T-0h), rain and silt sliders, camera presets, node inspector, and one-click chokepoint/pump actions |
-| MCG Operations & SOP Board | Coordinate pre-event and live-rain crew & pump execution | SOP stage filter (T-48h to After Rain), role tags (EE, AE, JE, Pump Crew, Control Room), status toggles, and RWA Override Audit Log |
-| Citizen Alert & Verification Hub | Deliver targeted public alerts while preventing alarm fatigue | Safe / Caution / Avoid tiers, Field Verification Queue for low/medium-confidence alerts, and SMS, IVR & corridor previews |
-| Metrics, Hardware & Assumptions | Track evaluation criteria, sensor specs, and transparency disclosures | Simulated metric cards (warning lead time, precision/recall, missed high-risk events, false-alert rate, alert-to-dispatch time, maintenance completion rate, waterlogging duration reduction), Indian-market hardware specs, and citations |
-5. Front-End & License Stack
-| Layer | Tool / Format | License | Purpose |
+| 1. 3D Corridor & Chokepoint Twin | Visualize elevation, silt load, upstream-downstream links, and flood risk in 3D | Forecast horizon (T-48h to T-0h), rain/silt sliders, camera presets, node inspector, and one-click Clear Chokepoint / Deploy Pump |
+| 2. MCG Operations & SOP Board | Coordinate pre-event and live-rain crew and pump dispatch | SOP phase filter (T-48h to After Rain), role badges (EE, AE, JE, Pump Crew, Control Room), task status toggles, and RWA Override Audit Log |
+| 3. Citizen Alert & Verification Hub | Deliver targeted commuter advisories without false-positive fatigue | Safe / Caution / Avoid thresholds, Field Verification Queue, and live SMS, IVR voice script & corridor previews |
+| 4. Validation, Sensors & Citations | Display evaluation metrics, hardware specs, and assumptions | Simulated metrics (lead time, precision/recall, missed events, false-alert rate, dispatch time, completion rate, waterlogging reduction), Indian-market sensor specs, and citations |
+6. Technology & License Stack
+| Layer | Technology / Format | License | Role |
 |---|---|---|---|
-| UI Framework | React, TypeScript, Vite | MIT License | Fast browser-based front-end application |
-| Styling | Tailwind CSS | MIT License | Clean, high-contrast control-room layout |
-| 3D Graphics | Three.js (three) | MIT License | Interactive 3D terrain, flow links, and flood indicators |
-| Icons | Lucide Icons | ISC License | Clear SOP and status iconography |
-| Prototype Hosting | Hosted Demo Link / ZIP (AI Studio / Web) | Per platform / MIT code | Shareable demo link or ZIP for Round 2 and live presentation |
-| Docs & Deck | Markdown (README.md) & Slide Deck (TeamName-SustainX-R2) | CC BY 4.0 (recommended for docs) | Attribution for sources, assumptions, and AI tools |
-6. SustainX 2026 Round 2 Submission & Citations
- * Submission Window & Dates: Round 2 closes November 24, 2026, 11:59 PM IST on Unstop; Top 10 finalists are announced November 28, 2026, and Final Presentations take place on campus at Great Lakes Gurgaon on December 8, 2026 (10-minute presentation + 5-minute jury Q&A).
- * Required Deliverables: Slide deck named TeamName-SustainX-R2 (max 12 slides, PPT or PDF) plus a shareable hosted prototype link or ZIP (and/or financial model spreadsheet) uploaded on Unstop.
- * Assumptions & Sources: All simulated scenario data, network links, silt/cost figures, and prototype outputs rely on documented operational assumptions alongside SustainX 2026 context on MCG's 159 waterlogging hotspots, 607 km drainage desilting mandate, September 1, 2025 rainfall/traffic/power outage data, and June 2026 desilting progress.
- * AI Tools Cited: Built with assistance from AI tools (including Google AI Studio / Gemini) for drafting, architecture exploration, and prototype generation, with all logic, assumptions, and outputs reviewed by the team.
+| Front-End UI | React, TypeScript, Vite | MIT License | Fast, browser-accessible control-room application |
+| Styling | Tailwind CSS | MIT License | Clean, high-contrast civic dashboard styling |
+| 3D Visualization | Three.js (three) | MIT License | Interactive 3D drainage corridors, links, and water-level columns |
+| Icons | Lucide Icons | ISC License | Crisp operational and SOP status icons |
+| Deployment | Hosted Demo Link / ZIP | Platform / MIT Code | Public shareable URL for Round 2 evaluation and live demo |
+| Documentation | Markdown & Slide Deck (TeamName-SustainX-R2) | CC BY 4.0 | Clear attribution of sources, assumptions, and AI tools |
+7. Submission Details
+ * Competition: SustainX 2026: The Sustainability Hackathon — Great Lakes Institute of Management (GLIM), Gurgaon (WCSB 2026)
+ * Team: [Your Team Name] — [Team Member Names]
+ * Live Hosted Demo URL: [Insert Public Shareable Demo Link]
+ * Slide Deck (TeamName-SustainX-R2): [Uploaded via Unstop Portal]
+8. Disclosure & Citations
+ * Documented Assumptions: Because live MCG sensor telemetry, private internal GIS/silt databases, and real-time operational feeds are simulated in this prototype, network links, silt factors, cost figures, and scenario outputs rely on documented operational assumptions; any unreleased municipal data required in production is explicitly stated as an assumption per SustainX rules.
+ * Public & Competition Context: SustainX 2026 problem brief data on MCG's 159 waterlogging hotspots, 607 km drainage desilting mandate, September 1, 2025 rainfall/traffic/power outage figures, and June 2026 desilting status.
+ * AI Tools Cited: Built with assistance from AI tools (Google AI Studio / Gemini) for drafting, architecture exploration, and prototype code generation; all system logic, assumptions, and outputs were reviewed and verified by the team.
+License
+ * Source Code: Released under the MIT License — free to use, modify, and adapt with attribution.
+ * Documentation & Operational Framework: Released under Creative Commons Attribution 4.0 International (CC BY 4.0).
+
