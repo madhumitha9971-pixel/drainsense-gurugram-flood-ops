@@ -1,0 +1,6 @@
+{
+  "name": "DrainSense — Gurugram Predictive Flood Operations",
+  "description": "AI-enabled predictive urban drainage and flood operations console for MCG and GMDA across Gurugram's 159 waterlogging hotspots.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
